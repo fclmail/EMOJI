@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CA$H PAGE</title>
+    <style>
+        body {
+            background-color: #000033;
+            margin: 0;
+            overflow: hidden;
+            border: 10px solid #00f7ff;
+            box-shadow: 0 0 20px #00f7ff;
+            height: 100vh;
+            position: relative;
+        }
+        .emoji {
+            position: absolute;
+            font-size: 2.5rem;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        const emojis = ['💵', '💰', '🪙', '⛽', '✅', '😃', '😄', '🙂', '😀'];
+        const emojiElements = [];
+        const container = document.body;
+        const screenWidth = window.innerWidth;
+        const screenHeight = window.innerHeight;
+        const speed = 3;
+        
+        emojis.forEach((emoji, index) => {
+            let elem = document.createElement('div');
+            elem.innerHTML = emoji;
+            elem.classList.add('emoji');
+            document.body.appendChild(elem);
+            
+            let x = Math.random() * (screenWidth - 50);
+            let y = Math.random() * (screenHeight - 50);
+            let dx = (Math.random() - 0.5) * speed;
+            let dy = (Math.random() - 0.5) * speed;
+            
+            emojiElements.push({ elem, x, y, dx, dy });
+        });
+        
+        function animate() {
+            emojiElements.forEach(obj => {
+                obj.x += obj.dx;
+                obj.y += obj.dy;
+                
+                if (obj.x <= 0 || obj.x >= screenWidth - 50) obj.dx *= -1;
+                if (obj.y <= 0 || obj.y >= screenHeight - 50) obj.dy *= -1;
+                
+                obj.elem.style.transform = `translate(${obj.x}px, ${obj.y}px)`;
+            });
+            requestAnimationFrame(animate);
+        }
+        
+        animate();
+    </script>
+</body>
+</html>
